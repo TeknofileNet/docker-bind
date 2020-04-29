@@ -1,4 +1,4 @@
-FROM wtfo/docker-base-ubuntu-s7
+FROM wtfo/docker-base-ubuntu-s6
 LABEL maintainer="teknofile <teknofile@teknofile.org>"
 RUN apt-get update && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y gnupg && \
