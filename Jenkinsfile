@@ -20,10 +20,10 @@ pipeline {
           env.CURR_DATE = sh(
             script: '''date '+%Y-%m-%dT%H:%M:%S%:z' ''',
             returnStdout: true).trim()
-          env.GITHASH_LONG=sh(
+          env.GITHASH_LONG = sh(
             script: '''git log -1 --format=%H''',
             returnStdout: true).trim()
-          env.GITHASH_SHORT-sh(
+          env.GITHASH_SHORT = sh(
             script: '''git log -1 --format=%h''',
             returnStdout: true).trim()
         }
