@@ -7,11 +7,9 @@ pipeline {
     CONTAINER_NAME = 'tkf-docker-bind'
     TKF_USER = 'wtfo'
     UBUNTU_VERSION = '18.04'
-
+    DOCKER_CLI_EXPERIMENTAL='enabled'
     LOCAL_DOCKER_PROXY="docker.copperdale.teknofile.net/"
     SCAN_SCRIPT="https://nexus.copperdale.teknofile.net/repository/teknofile-utils/teknofile/ci/utils/tkf-inline-scan-v0.6.0-1.sh"
-    GITHASH_LONG=$(git log -1 --format=%H)
-    GITHASH_SHORT=$(git log -1 --format=%h)
   }
 
   stages {
@@ -21,6 +19,12 @@ pipeline {
           env.EXIT_STATUS = ''
           env.CURR_DATE = sh(
             script: '''date '+%Y-%m-%dT%H:%M:%S%:z' ''',
+            returnStdout: true).trim()
+          env.GITHASH_LONG=sh(
+            script: '''git log -1 --format=%H''',
+            returnStdout: true).trim()
+          env.GITHASH_SHORT-sh(
+            script: '''git log -1 --format=%h''',
             returnStdout: true).trim()
         }
       }
@@ -37,7 +41,6 @@ pipeline {
         script {
           withDockerRegistry(credentialsId: 'teknofile-docker-creds') {
             sh '''
-              export DOCKER_CLI_EXPERIMENTAL=enabled
 
               # check if exists
               # docker buildx rm mybuilder
