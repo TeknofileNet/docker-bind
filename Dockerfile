@@ -27,6 +27,7 @@ RUN apt-get update && \
 #RUN chmod 755 /sbin/entrypoint.sh
 #
 EXPOSE 53/udp 53/tcp 10000/tcp
+
 #
 #ENTRYPOINT ["/sbin/entrypoint.sh"]
 #
