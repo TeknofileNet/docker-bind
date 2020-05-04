@@ -10,6 +10,8 @@ pipeline {
 
     LOCAL_DOCKER_PROXY="docker.copperdale.teknofile.net/"
     SCAN_SCRIPT="https://nexus.copperdale.teknofile.net/repository/teknofile-utils/teknofile/ci/utils/tkf-inline-scan-v0.6.0-1.sh"
+    GITHASH_LONG=$(git log -1 --format=%H)
+    GITHASH_SHORT=$(git log -1 --format=%h)
   }
 
   stages {
@@ -36,8 +38,6 @@ pipeline {
           withDockerRegistry(credentialsId: 'teknofile-docker-creds') {
             sh '''
               export DOCKER_CLI_EXPERIMENTAL=enabled
-              export GITHASH_LONG=$(git log -1 --format=%H)
-              export GITHASH_SHORT=$(git log -1 --format=%h)
 
               # check if exists
               # docker buildx rm mybuilder
