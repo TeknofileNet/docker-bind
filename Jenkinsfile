@@ -37,6 +37,7 @@ pipeline {
           export GITHASH_LONG=$(git log -1 --format=%H)
           export GITHASH_SHORT=$(git log -1 --format=%h)
 
+          docker buildx create --use --name mybuilder
           docker buildx build --build-arg VERSION=${UBUNTU_VERSION} --build-arg BUILD_DATE=${CURR_DATE} -t ${TKF_USER}/${CONTAINER_NAME} -t ${TKF_USER}/${CONTAINER_NAME}:${GITHASH_LONG} -t ${TKF_USER}/${CONTAINER_NAME}:${GITHASH_SHORT} --platform=linux/arm,linux/arm64,linux/amd64 .
           '''
       }
