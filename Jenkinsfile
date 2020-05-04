@@ -30,19 +30,10 @@ pipeline {
         '''
       }
     }
-    stage('Enabling and Building Buildx') {
-      steps {
-        sh '''
-          export DOCKER_CLI_EXPERIMENTAL=enabled
-          export DOCKER_BUILDKIT=1
-          docker build --platform=local -o . git://github.com/docker/buildx
-          mkdir -p ~/.docker/cli-plugins && mv buildx ~/.docker/cli-plugins/docker-buildx
-        '''
-      }
-    }
     stage('Build and Publish') {
       steps {
         sh '''
+          export DOCKER_CLI_EXPERIMENTAL=enabled
           export GITHASH_LONG=$(git log -1 --format=%H)
           export GITHASH_SHORT=$(git log -1 --format=%h)
 
